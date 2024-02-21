@@ -24,8 +24,8 @@ import numpy as np
 
 #CLI options
 
-filename = "RedVideo.mp4"
-output_filename = "test.txt"
+filename = "recVid.mp4"
+output_filename = "PulsData.txt"
 
 #read video file
 cap = cv2.VideoCapture(filename, cv2.CAP_FFMPEG)
