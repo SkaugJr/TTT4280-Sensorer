@@ -19,12 +19,12 @@ Requirements:
     - (or pip3 install opencv-python)
 """
 import sys
-import cv2
+import cv2 #Bytt til python 3.9 for å inkludere
 import numpy as np
 
 #CLI options
 
-filename = "recVid.mp4"
+filename = "PulsVid.mp4"
 output_filename = "PulsData.txt"
 
 #read video file
