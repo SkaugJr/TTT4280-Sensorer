@@ -40,8 +40,8 @@ PD=1/np.sqrt(3*(musr+mua)*mua) #Penetrasjons dybde
 z=1.2*10**(-2) # Finger tykkelse
 
 d=300*10**(-6)
-
+C=np.sqrt(3*(mua+musr)*mua)
 def alpha(x): # Prosentvis transmisjon
-    return np.exp(-mua*x)
+    return np.exp(-C*x)
 
 print(alpha(d))
