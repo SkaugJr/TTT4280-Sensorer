@@ -1,11 +1,11 @@
 /*
-adc_sampler.c
+radar_sampler.c
 
 Compile with:
-gcc -Wall -lpthread -o adc_sampler adc_sampler.c -lpigpio -lm
+gcc -Wall -lpthread -o radar_sampler radar_sampler.c -lpigpio -lm
 
 Run with:
-sudo ./adc_sampler
+sudo ./radar_sampler
 
 This code bit bangs SPI on several devices using DMA.
 
