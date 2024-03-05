@@ -1,9 +1,5 @@
 /*
 adc_sampler.c
-Public Domain
-January 2018, Kristoffer KjÃƒÂ¦rnes & Asgeir BjÃƒÂ¸rgan
-Based on example code from the pigpio library by Joan @ raspi forum and github
-https://github.com/joan2937 | http://abyz.me.uk/rpi/pigpio/
 
 Compile with:
 gcc -Wall -lpthread -o adc_sampler adc_sampler.c -lpigpio -lm
