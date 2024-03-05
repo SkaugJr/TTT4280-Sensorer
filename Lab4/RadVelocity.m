@@ -1,6 +1,6 @@
 clear mypi;
 clear;
-mypi=raspi("192.168.86.82","Kollis","646djohr");
+mypi=raspi("192.168.86.97","Kollis","646djohr");
 
 nSamples=31250;
 channels=2;
@@ -13,9 +13,9 @@ j=sqrt(-1);
 isRunning=true;
 
 while isRunning
-system(mypi,'lab1/./adc_sampler nSamples /home/Kollis/lab1/datafiler/SAMPLE.bin','sudo');
-getFile(mypi,'/home/Kollis/lab1/datafiler/SAMPLE.bin','C:\Users\skaug\OneDrive\Skole\2024-06-VÅR\TTT4280 - Sensorer og instrumentering\Lab\Lab4 - Radar');
-deleteFile(mypi,'/home/Kollis/lab1/datafiler/SAMPLE.bin');
+system(mypi,'lab4/./radar_sampler nSamples /home/Kollis/lab4/SAMPLE.bin','sudo');
+getFile(mypi,'/home/Kollis/lab4/SAMPLE.bin','C:\GitHub\TTT4280-Sensorer\Lab4');
+deleteFile(mypi,'/home/Kollis/lab4/SAMPLE.bin');
 
 fid=fopen("SAMPLE.bin","rb");
 nomPeriod=fread(fid,1,"double");
@@ -26,8 +26,8 @@ nSamples=numel(data)/channels; %Antall sampler per ADC
 dataMatrix = reshape(data,channels,nSamples); %Matrise med verdiene til ADC-ene i hver rad
 fclose(fid);
 
-I=dataMatrix(1,:);
-Q=dataMatrix(2,:);
+I=dataMatrix(1,:)*VDD/(2^nBits);
+Q=dataMatrix(2,:)*VDD/(2^nBits);
 
 x=I+j*Q;
 X=fft(X,N_fft);
