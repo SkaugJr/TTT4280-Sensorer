@@ -1,6 +1,6 @@
 clear mypi;
 clear;
-mypi=raspi("192.168.86.97","Kollis","646djohr");
+mypi=raspi("192.168.86.100","Kollis","646djohr");
 
 
 channels=2;
@@ -8,9 +8,8 @@ nBits=12;
 VDD=3.3;
 f_radar=24.13*10^9;
 c=3*10^8;
-N_fft=2^(15);
+N_fft=2^(14);
 j=sqrt(-1);
-
 
 while true
 
@@ -23,21 +22,24 @@ nomPeriod=fread(fid,1,"double");
 nomPeriod = nomPeriod * 1e-6;
 data=fread(fid,"uint16");
 nSamples=numel(data)/channels; 
-fs=nSamples/nomPeriod;
+fs=1/nomPeriod;
 dataMatrix = reshape(data,channels,nSamples);
 fclose(fid);
 
-I=dataMatrix(1,:)*VDD/(2.^nBits);
-Q=dataMatrix(2,:)*VDD/(2.^nBits);
+h=transpose(hann(nSamples-1));
+I=(dataMatrix(1,2:end)-mean(dataMatrix(1,2:end)))*VDD/(2.^nBits);
+Q=(dataMatrix(2,2:end)-mean(dataMatrix(2,2:end)))*VDD/(2.^nBits);
 
-x=I+j*Q;
-X=fft(x,N_fft);
+x=h.*(I+j*Q);
+X=abs(fftshift(fft(x,N_fft)));
+f=1/(N_fft*nomPeriod)*(-N_fft/2:N_fft/2-1);
 
-f = (0:nSamples-1) * fs / nSamples;
-[max_amp, max_idx] = max(abs(X));
+
+[max_amp, max_idx] = max(X);
 f_d = f(max_idx);
 
 v_rad=c*f_d/(2*f_radar);
 
 disp(['Radiell hastighet: ', num2str(v_rad), ' m/s']);
+
 end 
