@@ -1,0 +1,2 @@
+Kolonne1: Frekvens (Hz)		Kolonne 2: Amplituderespons (dB)	Kolonne 3: Faserespons (deg)
+F	M	P
