@@ -27,18 +27,23 @@ dataMatrix = reshape(data,channels,nSamples);
 fclose(fid);
 
 h=transpose(hann(nSamples-1));
-I=(dataMatrix(1,2:end)-mean(dataMatrix(1,2:end)))*VDD/(2.^nBits);
-Q=(dataMatrix(2,2:end)-mean(dataMatrix(2,2:end)))*VDD/(2.^nBits);
+I=(dataMatrix(1,2:end))*VDD/(2.^nBits);
+Q=(dataMatrix(2,2:end))*VDD/(2.^nBits);
+I=I-mean(I);
+Q=Q-mean(Q);
 
 x=h.*(I+j*Q);
 X=abs(fftshift(fft(x,N_fft)));
 f=1/(N_fft*nomPeriod)*(-N_fft/2:N_fft/2-1);
 
-
 [max_amp, max_idx] = max(X);
 f_d = f(max_idx);
 
-v_rad=c*f_d/(2*f_radar);
+if(abs(f_d)<10)
+    v_rad=0;
+else
+    v_rad=c*f_d/(2*f_radar); 
+end
 
 disp(['Radiell hastighet: ', num2str(v_rad), ' m/s']);
 
