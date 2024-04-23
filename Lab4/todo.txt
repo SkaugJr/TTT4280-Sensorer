@@ -1,1 +1,0 @@
-Legg til vindusfunksjon før fft i matlab
